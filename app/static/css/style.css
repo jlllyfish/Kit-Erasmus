@@ -1,0 +1,484 @@
+/* RESET ET BASE */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu,
+    Cantarell, sans-serif;
+  background-color: #ffffff; /* Fond blanc */
+  color: #000000;
+}
+
+/* ========================================
+   📍 HEADER AVEC LOGO + TITRE
+   ======================================== */
+.header {
+  background-color: #ffffff;
+  padding: 20px 40px;
+  padding-bottom: 30px;
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  justify-content: space-between;
+}
+
+.logo-container-right {
+  flex-shrink: 0;
+  margin-left: auto;
+}
+
+/* 📍 ZONE LOGO (en haut à gauche) */
+.logo-container {
+  flex-shrink: 0;
+}
+
+.logo {
+  height: 60px;
+  width: auto;
+}
+
+/* 📍 ZONE TITRES */
+.title-container {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.main-title {
+  font-size: 32px;
+  font-weight: 700;
+  color: #000000;
+}
+
+.subtitle {
+  font-size: 14px;
+  color: #666666;
+  font-weight: 400;
+}
+
+/* ========================================
+   📍 NAVIGATION ONGLETS
+   ======================================== */
+.tabs {
+  display: flex;
+  gap: 0;
+  background-color: #ffffff;
+  border-bottom: 2px solid #000000;
+  padding: 0 40px;
+}
+
+.tab {
+  padding: 15px 30px;
+  text-decoration: none;
+  color: #666666;
+  font-weight: 500;
+  border-bottom: 3px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.tab:hover {
+  color: #000000;
+}
+
+.tab.active {
+  color: #000000;
+  border-bottom: 3px solid #000000;
+}
+
+/* ========================================
+   CONTENEUR PRINCIPAL
+   ======================================== */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+/* ========================================
+   📍 BLOCS STATISTIQUES (rectangulaires arrondis)
+   ======================================== */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 20px;
+  margin-bottom: 40px;
+}
+
+/* 📍 BLOC STAT INDIVIDUEL */
+.stat-card {
+  background-color: #ffffff; /* Blocs blancs */
+  color: #000000; /* Texte noir */
+  border: 2px solid #000000; /* Filet noir 2pt */
+  border-radius: 20px;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 15px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-5px);
+}
+
+/* 📍 ICONE EN HAUT DU BLOC */
+.stat-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.stat-icon svg {
+  stroke: #000000;
+}
+
+/* 📍 CHIFFRE */
+.stat-number {
+  font-size: 48px;
+  font-weight: 700;
+  color: #000000;
+}
+
+/* 📍 TEXTE DU BLOC */
+.stat-label {
+  font-size: 16px;
+  font-weight: 500;
+  color: #000000;
+  opacity: 0.9;
+}
+
+/* ========================================
+   📍 BOUTON ENVOI EN GÉLULE
+   ======================================== */
+.action-section {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+.send-button {
+  background-color: #000000; /* Bouton noir */
+  color: #ffffff; /* Texte blanc */
+  border: none;
+  border-radius: 50px; /* Gélule arrondie */
+  padding: 18px 50px;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.send-button:hover {
+  background-color: #333333;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+}
+
+.send-button:active {
+  transform: translateY(0);
+}
+
+.send-button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+/* ========================================
+   📍 ZONE LOGS (mini log)
+   ======================================== */
+.log-section {
+  margin-top: 30px;
+}
+
+.log-container {
+  background-color: #f5f5f5;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 20px;
+  max-height: 300px;
+  overflow-y: auto;
+  font-family: "Courier New", monospace;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.log-placeholder {
+  color: #999999;
+  text-align: center;
+  font-style: italic;
+}
+
+.log-entry {
+  margin-bottom: 8px;
+  color: #000000;
+}
+
+.log-entry.success {
+  color: #000000;
+}
+
+.log-entry.error {
+  color: #000000;
+}
+
+.log-entry.info {
+  color: #000000;
+}
+
+/* ========================================
+   📍 ONGLET ETABLISSEMENTS
+   ======================================== */
+
+/* Menu déroulant */
+.filter-section {
+  margin-bottom: 30px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  flex-wrap: wrap;
+  padding-left: 0;
+}
+
+.filter-label {
+  font-size: 16px;
+  font-weight: 600;
+  color: #000000;
+}
+
+.etab-select {
+  padding: 12px 20px;
+  font-size: 16px;
+  border: 2px solid #000000;
+  border-radius: 10px;
+  background-color: #ffffff;
+  color: #000000;
+  cursor: pointer;
+  min-width: 300px;
+  transition: all 0.3s ease;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+.etab-select option {
+  background-color: #ffffff !important;
+  color: #000000 !important;
+  padding: 10px;
+}
+
+.etab-select option:checked {
+  background-color: #000000 !important;
+  color: #ffffff !important;
+}
+
+.etab-select:hover {
+  border-color: #333333;
+}
+
+.etab-select:focus {
+  outline: none;
+  border-color: #000000;
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Grille de participants */
+.participants-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 250px);
+  gap: 20px;
+}
+
+/* 📍 CARTE PARTICIPANT (rectangle blanc, bordure noire 2pt, arrondi) */
+.participant-card {
+  background-color: #ffffff;
+  border: 2px solid #000000;
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.participant-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* 📍 ICONE EN HAUT DU RECTANGLE */
+.participant-icon {
+  width: 60px;
+  height: 60px;
+  background-color: #000000;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 15px;
+}
+
+.participant-icon svg {
+  stroke: #ffffff;
+}
+
+.participant-header {
+  margin-bottom: 15px;
+  width: 100%;
+  text-align: center;
+}
+
+.participant-name {
+  font-size: 18px;
+  font-weight: 700;
+  color: #000000;
+  margin: 0;
+}
+
+/* Informations du participant */
+.participant-info {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+
+/* 📍 GÉLULE PAYS AVEC ICÔNE PIN */
+.pays-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background-color: #ffffff;
+  border: 1px solid #000000;
+  border-radius: 20px;
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #000000;
+  align-self: center;
+}
+
+.pays-badge svg {
+  flex-shrink: 0;
+}
+
+/* 📍 INFOS CENTRÉES (dates) */
+.info-centered {
+  text-align: center;
+  font-size: 15px;
+  color: #000000;
+  font-weight: 500;
+  padding: 5px 0;
+}
+
+/* 📍 SECTION KIT E+ (titre + badge sur 2 lignes) */
+.kit-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.kit-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #000000;
+}
+
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.info-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #666666;
+}
+
+.info-value {
+  font-size: 14px;
+  color: #000000;
+}
+
+.kit-badge {
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+  text-align: center;
+  border: 2px solid #000000; /* ← Ajoute ici pour tous */
+}
+
+.kit-a-valider {
+  background-color: #ffffff; /* Fond noir */
+  color: #000000; /* Texte blanc */
+  border: 2px solid #000000; /* Filet noir */
+}
+
+.kit-valide,
+.kit-validé {
+  background-color: #f0f0f0; /* Fond gris clair */
+  color: #000000; /* Texte noir */
+  border: 2px solid #000000; /* Filet noir */
+}
+
+.kit-envoye,
+.kit-envoyé {
+  background-color: #000000; /* Fond blanc */
+  color: #ffffff; /* Texte noir */
+  border: 2px solid #000000;
+}
+
+/* Message aucune donnée */
+.no-data {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 40px;
+  color: #999999;
+  font-style: italic;
+}
+
+/* 📍 CHAMP DE RECHERCHE */
+.search-container {
+  flex: 1;
+  min-width: 250px;
+  max-width: 400px;
+}
+
+.search-input {
+  width: 100%;
+  padding: 12px 20px;
+  font-size: 16px;
+  border: 2px solid #000000;
+  border-radius: 10px;
+  background-color: #ffffff;
+  color: #000000;
+  transition: all 0.3s ease;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #000000;
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
+}
+
+.search-input::placeholder {
+  color: #999999;
+}

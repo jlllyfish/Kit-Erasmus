@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Moose - Gestion des mobilités</title>
+     <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+  </head>
+  <body>
+    <!-- HEADER AVEC LOGO + TITRE -->
+    <header class="header">
+      <div class="header-content">
+        <!-- 📍 LOGO ICI (en haut à gauche) -->
+        <div class="logo-container">
+            <img src="{{ url_for('static', filename='moose_black.svg') }}" alt="Logo" class="logo">
+        </div>
+
+        <!-- 📍 TITRES -->
+        <div class="title-container">
+          <h1 class="main-title">Moose</h1>
+          <p class="subtitle">Gestion des mobilités Moow EFP</p>
+        </div>
+
+    <!-- 📍 LOGO DROITE -->
+    <div class="logo-container-right">
+      <img src="{{ url_for('static', filename='Logo-moow_black.svg') }}" alt="Logo droite" class="logo">
+    </div>
+  </div>
+</header>
+
+    <!-- NAVIGATION ONGLETS -->
+    <nav class="tabs">
+      <a href="/" class="tab {% if active_tab == 'kite' %}active{% endif %}"
+        >Kit E+</a
+      >
+      <a
+        href="/etablissements"
+        class="tab {% if active_tab == 'etablissements' %}active{% endif %}"
+        >Etablissements</a
+      >
+    </nav>
+
+    <!-- CONTENU PRINCIPAL -->
+    <main class="container">{% block content %}{% endblock %}</main>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+  </body>
+</html>

@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="filter-section">
+    <select id="etabSelect" class="etab-select" onchange="changeEtablissement()">
+        {% for etab in etablissements %}
+        <option value="{{ etab }}" {% if etab == selected_etab %}selected{% endif %}>{{ etab }}</option>
+        {% endfor %}
+    </select>
+    
+    <div class="search-container">
+        <input type="text" id="searchInput" class="search-input" placeholder="Rechercher par nom..." onkeyup="filterParticipants()">
+    </div>
+</div>
+
+<div class="participants-grid">
+    {% for participant in participants %}
+    <div class="participant-card">
+        <div class="participant-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+        </div>
+        
+        <div class="participant-header">
+            <h3 class="participant-name">{{ participant.prenom }} {{ participant.nom }}</h3>
+        </div>
+        
+        <div class="participant-info">
+            <div class="pays-badge">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                    <circle cx="12" cy="10" r="3"></circle>
+                </svg>
+                {{ participant.pays }}
+            </div>
+            <div class="info-centered">{{ participant.date_debut }}</div>
+            <div class="info-centered">{{ participant.date_fin }}</div>
+            <div class="kit-section">
+                <div class="kit-title">Kit E+</div>
+                <span class="kit-badge kit-{{ participant.kit_status|lower|replace('à', 'a')|replace(' ', '-') }}">{{ participant.kit_status }}</span>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+    {% if not participants %}
+    <div class="no-data"><p>Aucun participant pour cet établissement</p></div>
+    {% endif %}
+</div>
+
+<script>
+function changeEtablissement() {
+    const select = document.getElementById('etabSelect');
+    const etab = select.value;
+    window.location.href = `/etablissements?etab=${encodeURIComponent(etab)}`;
+}
+
+function filterParticipants() {
+    const searchInput = document.getElementById('searchInput').value.toLowerCase();
+    const cards = document.querySelectorAll('.participant-card');
+    
+    cards.forEach(card => {
+        const name = card.querySelector('.participant-name').textContent.toLowerCase();
+        
+        if (name.includes(searchInput)) {
+            card.style.display = 'flex';
+        } else {
+            card.style.display = 'none';
+        }
+    });
+}
+</script>
+{% endblock %}

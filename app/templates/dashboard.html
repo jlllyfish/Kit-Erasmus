@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!-- BLOCS STATISTIQUES -->
+<div class="stats-grid">
+    <!-- BLOC 1: TOTAL -->
+    <div class="stat-card">
+        <div class="stat-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+            </svg>
+        </div>
+        <div class="stat-number">{{ stats.total }}</div>
+        <div class="stat-label">Total</div>
+    </div>
+
+    <!-- BLOC 2: CONVENTIONS À GÉNÉRER -->
+    <div class="stat-card">
+        <div class="stat-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+                <line x1="12" y1="18" x2="12" y2="12"></line>
+                <line x1="9" y1="15" x2="15" y2="15"></line>
+            </svg>
+        </div>
+        <div class="stat-number">{{ stats.a_generer }}</div>
+        <div class="stat-label">Conventions à générer</div>
+    </div>
+
+    <!-- BLOC 3: CONVENTIONS À VALIDER -->
+    <div class="stat-card">
+        <div class="stat-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
+                <rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect>
+            </svg>
+        </div>
+        <div class="stat-number">{{ stats.a_valider }}</div>
+        <div class="stat-label">Conventions à valider</div>
+    </div>
+
+    <!-- BLOC 4: CONVENTIONS À ENVOYER -->
+    <div class="stat-card">
+        <div class="stat-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 2L11 13"></path>
+                <path d="M22 2L15 22L11 13L2 9L22 2Z"></path>
+            </svg>
+        </div>
+        <div class="stat-number">{{ stats.a_envoyer }}</div>
+        <div class="stat-label">Conventions à envoyer</div>
+    </div>
+
+    <!-- BLOC 5: CONVENTIONS ENVOYÉES -->
+    <div class="stat-card">
+        <div class="stat-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+        </div>
+        <div class="stat-number">{{ stats.envoyes }}</div>
+        <div class="stat-label">Conventions envoyées</div>
+    </div>
+</div>
+
+<!-- BOUTON ENVOI -->
+<div class="action-section">
+    <button id="sendBtn" class="send-button">Envoyer les Conventions</button>
+</div>
+
+<!-- MINI LOG -->
+<div class="log-section">
+    <div class="log-container" id="logContainer">
+        <p class="log-placeholder">Les logs d'envoi s'afficheront ici...</p>
+    </div>
+</div>
+{% endblock %}
