@@ -78,6 +78,20 @@ def etablissements():
                          participants=participants,
                          active_tab='etablissements')
 
+@bp.route('/statistiques')
+def statistiques():
+    """Page de statistiques"""
+    # Récupérer la liste des établissements
+    etablissements_list = get_etablissements_list()
+    
+    # Récupérer l'établissement sélectionné (par défaut "Tous")
+    selected = request.args.get('etab', 'Tous')
+    
+    return render_template('stats.html', 
+                         etablissements=etablissements_list,
+                         selected_etab=selected,
+                         active_tab='statistiques')
+
 def get_etablissements_list():
     """Récupère la liste unique des établissements"""
     base_url = os.getenv("GRIST_BASE_URL")
@@ -162,7 +176,6 @@ def get_participants_by_etablissement(etablissement):
                     "kit_status": kit_status
                 })
         
-        participants.sort(key=lambda x: x['nom'].lower())
         return participants
     except Exception as e:
         return []
@@ -203,3 +216,99 @@ def send_conventions():
         })
     except Exception as e:
         return jsonify({"success": False, "error": str(e)}), 500
+
+@bp.route('/api/chart_data')
+def chart_data():
+    """API pour récupérer les données des graphiques"""
+    etab = request.args.get('etab', 'Tous')
+    
+    base_url = os.getenv("GRIST_BASE_URL")
+    doc_id = os.getenv("GRIST_DOC_ID")
+    api_key = os.getenv("GRIST_API_KEY")
+    table = os.getenv("GRIST_TABLE")
+    
+    url = f"{base_url}/docs/{doc_id}/tables/{table}/records"
+    headers = {"Authorization": f"Bearer {api_key}"}
+    
+    try:
+        response = requests.get(url, headers=headers)
+        records = response.json()["records"]
+        
+        # Filtrer par établissement si nécessaire
+        if etab != 'Tous':
+            records = [r for r in records if r["fields"].get("ref_champs_votre_eplefpa") == etab]
+        
+        # 1. Big Number : Total mobilités
+        total = len(records)
+        
+        # 2. Somme des jours d'activité
+        total_jours = sum(r["fields"].get("Nbre_jours_activite", 0) for r in records)
+        
+        # 3. Récupérer les prévisions
+        url_previsions = f"{base_url}/docs/{doc_id}/tables/Previsions/records"
+        response_prev = requests.get(url_previsions, headers=headers)
+        previsions = response_prev.json()["records"]
+        
+        # Calculer le total prévu
+        if etab != 'Tous':
+            # Chercher la prévision pour cet établissement
+            prev_etab = [p for p in previsions if p["fields"].get("Etablissement") == etab]
+            total_prevu = sum(p["fields"].get("Nombre_jours", 0) for p in prev_etab)
+        else:
+            # Somme de toutes les prévisions
+            total_prevu = sum(p["fields"].get("Nombre_jours", 0) for p in previsions)
+        
+        # Calculer le %
+        pct_consommation = round((total_jours / total_prevu * 100), 1) if total_prevu > 0 else 0
+        
+        # 4. Donut : Répartition par pays
+        pays_count = {}
+        for r in records:
+            pays = r["fields"].get("ref_champs_pays_d_accueil", "Non défini")
+            pays_count[pays] = pays_count.get(pays, 0) + 1
+        
+        # Top 10 pays + Autres
+        sorted_pays = sorted(pays_count.items(), key=lambda x: x[1], reverse=True)
+        top_10 = sorted_pays[:10]
+        autres = sum([count for _, count in sorted_pays[10:]])
+        
+        donut_labels = [pays for pays, _ in top_10]
+        donut_values = [count for _, count in top_10]
+        
+        if autres > 0:
+            donut_labels.append("Autres")
+            donut_values.append(autres)
+        
+        # 5. Courbe : Mobilités par mois depuis 2026
+        monthly_count = {}
+        for r in records:
+            date_debut = r["fields"].get("ref_champs_date_debut_activite_hors_jours_de_voyage")
+            if date_debut:
+                try:
+                    dt = datetime.fromtimestamp(date_debut)
+                    if dt.year >= 2026:
+                        month_key = dt.strftime("%Y-%m")
+                        monthly_count[month_key] = monthly_count.get(month_key, 0) + 1
+                except:
+                    pass
+        
+        # Trier par mois
+        sorted_months = sorted(monthly_count.items())
+        line_labels = [month for month, _ in sorted_months]
+        line_values = [count for _, count in sorted_months]
+        
+        return jsonify({
+            "total": total,
+            "total_jours": total_jours,
+            "pct_consommation": pct_consommation,
+            "donut": {
+                "labels": donut_labels,
+                "series": donut_values
+            },
+            "line": {
+                "labels": line_labels,
+                "series": line_values
+            }
+        })
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
