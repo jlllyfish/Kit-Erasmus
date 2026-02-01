@@ -491,7 +491,7 @@ body {
   .stats-grid {
     grid-template-columns: repeat(3, 1fr);
   }
-  
+
   .participants-grid {
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   }
@@ -502,31 +502,32 @@ body {
   .header {
     padding: 15px 20px;
   }
-  
+
   .main-title {
     font-size: 24px;
   }
-  
+
   .subtitle {
     font-size: 12px;
   }
-  
+
   /* Stats sur 2 colonnes */
   .stats-grid {
     grid-template-columns: repeat(2, 1fr);
   }
-  
+
   /* Menu et recherche empilés */
   .filter-section {
     flex-direction: column;
     align-items: stretch;
   }
-  
-  .etab-select, .search-container {
+
+  .etab-select,
+  .search-container {
     width: 100%;
     max-width: none;
   }
-  
+
   /* Participants 1 colonne */
   .participants-grid {
     grid-template-columns: 1fr;
@@ -538,8 +539,109 @@ body {
   .stats-grid {
     grid-template-columns: 1fr;
   }
-  
+
   .logo {
     height: 40px;
+  }
+}
+/* ========================================
+   📊 ONGLET STATISTIQUES
+   ======================================== */
+
+.stats-big-number {
+  display: flex;
+  justify-content: flex-start;
+  gap: 20px;
+  margin-bottom: 40px;
+}
+
+.big-number-card {
+  background-color: #ffffff;
+  border: 2px solid #000000;
+  border-radius: 20px;
+  padding: 30px 50px;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  flex: 1;
+}
+
+.big-number-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.big-number-value {
+  font-size: 48px;
+  font-weight: 700;
+  color: #000000;
+  margin-bottom: 10px;
+}
+
+.big-number-label {
+  font-size: 16px;
+  font-weight: 600;
+  color: #666666;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Grille de graphiques */
+.charts-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 30px;
+  margin-bottom: 40px;
+}
+
+.chart-card {
+  background-color: #ffffff;
+  border: 2px solid #000000;
+  border-radius: 15px;
+  padding: 30px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.chart-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.chart-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #000000;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* Responsive Stats */
+@media (max-width: 1024px) {
+  .charts-grid {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 768px) {
+  .tabs {
+    flex-direction: column;
+  }
+
+  .tab {
+    text-align: center;
+    border-bottom: 1px solid #e0e0e0;
+    border-left: 3px solid transparent;
+  }
+
+  .tab.active {
+    border-bottom: 1px solid #e0e0e0;
+    border-left: 3px solid #000000;
+  }
+}
+@media (max-width: 768px) {
+  .stats-big-number {
+    flex-direction: column;
+  }
+
+  .big-number-card {
+    width: 100%;
   }
 }
