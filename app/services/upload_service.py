@@ -28,7 +28,7 @@ def main():
                 dossier_id=rec['dossier_id'],
                 file_content=file_content,
                 filename=rec['pj_filename'],
-                message_body="Document transmis automatiquement"
+                message_body="Bonjour,\n\nVeuillez trouver ci-joint le contrat pédagogique Erasmus+ 📄. Merci de nous le renvoyer dès qu'il sera signé par toutes les parties concernées 🖋️.\n\nCordialement,\n👋 L'équipe Moow Pro"
             )
             
             if result["success"]:
