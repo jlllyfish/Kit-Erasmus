@@ -168,6 +168,7 @@ def get_participants_by_etablissement(etablissement):
                         date_fin = str(date_fin_raw)
                 
                 participants.append({
+                    "numero_dossier": fields.get("dossier_number", ""),
                     "prenom": premier_prenom,
                     "nom": fields.get("nom_participant", ""),
                     "pays": fields.get("ref_champs_pays_d_accueil", ""),
