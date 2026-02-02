@@ -177,6 +177,8 @@ def get_participants_by_etablissement(etablissement):
                     "kit_status": kit_status
                 })
         
+        # Trier par nom alphabétique
+        participants.sort(key=lambda x: x['nom'].lower())
         return participants
     except Exception as e:
         return []
