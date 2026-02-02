@@ -15,7 +15,7 @@
 
 <div class="participants-grid">
     {% for participant in participants %}
-    <div class="participant-card">
+    <a href="https://demarche.numerique.gouv.fr/procedures/128447/tous/dossiers/{{ participant.numero_dossier }}" target="_blank" class="participant-card">
         <div class="participant-icon">
             <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
                 <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
@@ -42,7 +42,7 @@
                 <span class="kit-badge kit-{{ participant.kit_status|lower|replace('à', 'a')|replace(' ', '-') }}">{{ participant.kit_status }}</span>
             </div>
         </div>
-    </div>
+    </a>
     {% endfor %}
     {% if not participants %}
     <div class="no-data"><p>Aucun participant pour cet établissement</p></div>
