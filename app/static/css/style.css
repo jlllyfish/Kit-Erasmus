@@ -648,3 +648,55 @@ body {
     width: 100%;
   }
 }
+/* Bottom Navigation (mobile only) */
+.bottom-nav {
+  display: none; /* Caché par défaut sur desktop */
+}
+
+@media (max-width: 768px) {
+  /* Cacher les onglets du haut sur mobile */
+  .tabs {
+    display: none;
+  }
+
+  /* Afficher la bottom bar */
+  .bottom-nav {
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #ffffff;
+    border-top: 2px solid #000000;
+    justify-content: space-around;
+    padding: 10px 0;
+    z-index: 1000;
+  }
+
+  .bottom-nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    color: #666666;
+    font-size: 12px;
+    padding: 5px 10px;
+  }
+
+  .bottom-nav-item.active {
+    color: #000000;
+  }
+
+  .bottom-nav-icon {
+    width: 24px;
+    height: 24px;
+    margin-bottom: 5px;
+    stroke: currentColor;
+    fill: none;
+  }
+
+  /* Ajouter padding-bottom au container pour éviter que le contenu passe sous la bottom bar */
+  .container {
+    padding-bottom: 80px;
+  }
+}
